@@ -12,7 +12,7 @@ test("form header renders", () => {
 	expect(formHeader).toBeInTheDocument();
 });
 
-test("form shows success message on submit with form details", () => {
+test("form shows success message on submit with form details", async () => {
 	render(<CheckoutForm />);
 
 	const firstName = screen.getByLabelText(/first name/i);
@@ -35,6 +35,9 @@ test("form shows success message on submit with form details", () => {
 	fireEvent.change(zip, { target: { name: "zip", value: "80085" } });
 	fireEvent.click(button);
 	const successMessage = screen.getByTestId("successMessage");
+
+	const newFirstName = await screen.findByText(/Jack/i);
+	console.log(newFirstName);
 
 	expect(successMessage).toHaveTextContent(
 		"You have ordered some plants! Woo-hoo!"
